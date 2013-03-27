@@ -31,7 +31,7 @@ require_once(dirname(__FILE__) . '/locallib.php');
 function local_kaltura_extends_navigation($navigation) {
 
     global $USER, $PAGE, $SITE;
-
+	/*
     // Finds courses where the user has this capabiltiy
     $courses = get_user_capability_course('local/kaltura:view_report', null, true, 'shortname', 'shortname ASC');
 
@@ -67,5 +67,6 @@ function local_kaltura_extends_navigation($navigation) {
 
         $i++;
     }
+	*/
 }
 
