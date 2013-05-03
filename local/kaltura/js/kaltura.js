@@ -594,6 +594,7 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
         });
 
         function video_preview_callback(e) {
+		
             var entry_id = entry_element.get("value");
 
             if ("" == entry_id) {
@@ -683,7 +684,8 @@ M.local_kaltura.video_assignment = function (Y, conversion_script, panel_markup,
 M.local_kaltura.video_asignment_submission_view = function (Y, conversion_script, panel_markup, uiconf_id) {
 
 	// Added in the hope that it'll fix the YUI2 problem...
-	YUI().use('yui2-container','node', function(Y) {
+	// Updated by m.stubbs@mmu.ac.uk 2013-05-03 to add io and json to fix preview issue
+	YUI().use('yui2-container','node', 'io', 'json-parse', function(Y) {
 
 	var YAHOO = Y.YUI2;
 
@@ -803,7 +805,8 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
 								default_tags, default_category) {
 
 	// YUI2 in 3 fix added by m.stubbs@mmu.ac.uk
-	YUI().use('yui2-container', 'node', function(Y) {
+	// io-base and json-parse added 2013-05-03 to fix preview issue
+	YUI().use('yui2-container', 'node', 'io-base', 'json-parse', function(Y) {
 
 	var YAHOO = Y.YUI2;
 
@@ -1218,6 +1221,7 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
     });
 
     function video_preview_callback(e) {
+	
         var entry_id = entry_element.get("value");
 
         if ("" == entry_id) {
@@ -1248,6 +1252,7 @@ M.local_kaltura.video_resource = function (Y, conversion_script,
                "video_title=" + video_title);
 
         }
+
     }
 
     preview.on("click", video_preview_callback, null);
@@ -1537,6 +1542,7 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
     var preview = Y.one("#id_video_preview");
     
     function video_preview_callback(e) {
+
         var entry_id     = pres_entry_id.get("value");
         var vid_entry_id = video_entry_id.get("value");
         var flag         = video_added.get("value");
@@ -1711,6 +1717,10 @@ M.local_kaltura.video_presentation = function (Y, conversion_script,
 M.local_kaltura.video_presentation_view = function (Y, conversion_script, 
                                                     panel_markup, video_properties, admin_mode) {
 
+	// Added by m.stubbs@mmu.ac.uk 2013-05-03
+	YUI().use('yui2-container', 'node', 'io', 'json-parse', function(Y) {
+		var YAHOO = Y.YUI2;
+
     // Adding makup to the body of the page for the kalvidpres view
     if (null !== Y.one("#page-mod-kalvidpres-view")) {
 
@@ -1791,5 +1801,9 @@ M.local_kaltura.video_presentation_view = function (Y, conversion_script,
 
             
     Y.on('io:complete', check_conversion_status, Y);
+
+	// Hopefully closing the YUI USE in the right place!
+	});
+
 
 };
